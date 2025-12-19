@@ -1,0 +1,137 @@
+<div id="home" class="home">
+    <section id="navbar">
+        <div class="logo-group">
+            <img src="/Logo.png" alt="Logo" class="circle-image">
+            <h1 id="title">AlumniEngine</h1>
+        </div>
+        <div class="right_nav">
+            <div class="navbar-elts">
+                <a href="">HOME</a>
+                <a href="#about">ABOUT US</a>
+                <a href="#contact">CONTACT</a>
+            </div>
+            <div class="button_grp">
+                <button id="login_button" (click)="navigateToLogin()">Log in</button>
+        <button id="signup_button" (click)="navigateToSignUp()">Sign up</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="heading">
+        <div class="intro">
+            <div class="intro_text">
+                <h1 id="slogan">Networking at its <br> finest</h1>
+                <h4>Mentorship, Internships, and More – Powered by Alumni.<br>Start connecting today—your future starts here!</h4>
+                <h4 id="question">Are you an Enicarthage graduate or current student?</h4>
+                <button id="join_button" (click)="navigateToJoinUs()">Join us -></button>
+            </div>
+            <img src="/Logo_ENICarthage.jpg" alt="Enicarthage's Logo" class="logo-enicar">
+        </div>
+    </section>
+
+    <section id="about">
+        <h4>- About</h4>
+        <h2 class="alumni">AlumniEngine</h2>
+        <div class="about_Img_text">
+        <p>AlumniEngine is a dedicated platform connecting alumni and current <br> students of Enicarthage. Our goal is to foster meaningful <br> mentorship, career networking, and professional growth within the <br> university community.Whether you're a student seeking guidance or<br> an alumni looking to give back, AlumniEngine makes networking<br> seamless and impactful.<br>
+            Join today and tap into the power of your university network! </p>
+        <div class="Images">
+        <img src="/ClaspingHands.png" alt="Image of clasping hands" style="width:470px; height:340px;border-radius: 35px" class="clasping-hands-img">
+        <img src="/review-stars.png" alt="Review Stars" style="border-radius: 20px" class="review-stars-img">
+        </div>
+        </div>
+        <div class="join">
+        <img src="/ready.png" class="ready-join-img">
+        <button id="ready_join_button" (click)="navigateToJoinUs()">Join Us</button>
+        </div>
+    </section>
+    <section id="why">
+        <div class="whyHeading">
+        <h4>- Why -</h4>
+        <h2>AlumniEngine</h2>
+        <section class="feature-grid">
+            <div class="feature-card">
+                <div class="vector-container">
+                    <img src="/whyvectors/whyVect1.svg" alt="Feature 1" style="width:50px;height:50px" class="feature-vector">
+                </div>
+                <h2>Networking <br> Opportunities</h2>
+                <h3>Access a vast network of <br> professionals from your university <br>across industries and geographies</h3>
+            </div>
+            <div class="feature-card">
+                <div class="vector-container">
+                    <img src="/whyvectors/whyVect2.svg" alt="Feature 2" style="width:50px;height:50px" class="feature-vector">
+                </div>
+                <h2>Career Guidance and <br> Support</h2>
+                <h3>Receive personalized advice from alumni <br> who have walked the same<br> path</h3>
+            </div>
+            <div class="feature-card">
+                <div class="vector-container">
+                    <img src="/whyvectors/whyVect3.svg" alt="Feature 3" style="width:50px;height:50px" class="feature-vector">
+                </div>
+                <h2>Employment and <br> Internship Insights</h2>
+                <h3>Discover where alumni are working <br> and the roles they hold.</h3>
+            </div>
+            <div class="feature-card">
+                <div class="vector-container">
+                    <img src="/whyvectors/whyVect4.svg" alt="Feature 4" style="width:50px;height:50px" class="feature-vector">
+                </div>
+                <h2>Skill Development and <br> Learning</h2>
+                <h3> Access resources shared by <br> alumni to help you develop in-<br>demand skills and get expert <br> advice on crafting resumes and <br>acing interviews.</h3>
+            </div>
+            <div class="feature-card">
+                <div class="vector-container">
+                    <img src="/whyvectors/whyVect5.svg" alt="Feature 5" style="width:50px;height:50px" class="feature-vector">
+                </div>
+                <h2>Access to Exclusive <br>Opportunities</h2>
+                <h3> Explore job and internship <br> opportunities shared exclusively <br>by alumni and get referred to top<br> companies.</h3>
+            </div>
+            <div class="feature-card">
+                <div class="vector-container">
+                    <img src="/whyvectors/whyVect6.svg" alt="Feature 6" style="width:50px;height:50px" class="feature-vector">
+                </div>
+                <h2>Giving Back to the <br>Community</h2>
+                <h3> Contribute to university initiatives <br>and help shape the next<br> generation of professionals.</h3>
+            </div>
+        </section>
+        </div>
+    </section>
+    <section id="footer">
+        <div class="logo_button">
+        <div class="logo_text">
+        <img src="/logo_inverted.png" alt="AlumniEngine's logo" style="width:45px;height:45px;" class="inerted_logo">
+        <h2 class="text_footer">Alumni Engine</h2>
+        </div>
+        <button id="join_us_button" (click)="navigateToJoinUs()"><strong>Join Us</strong></button>
+        </div>
+        <div class="navigation_footer">
+            <a href="#about"><strong>About</strong></a><br>
+            <a (click)="navigateToTerms()"><strong>Terms of Use and Privacy Policy</strong></a><br>
+            <a href="#home"><strong>Home</strong></a><br>
+            <a href="http://www.enicarthage.rnu.tn/"><strong>University's website</strong></a><br>
+        </div>
+        <div id="contact" class="contact_footer">
+            <h2>Contact</h2>
+            <div class="location">
+                <img src="/footerIcons/location_icon.svg" alt="Location icon" class="location_icon">
+                <h3>45 Rue des Entrepreneurs, 2035<br>Charguiya 2, Ariana</h3>
+            </div>
+            <div class="mail">
+                <img src="/footerIcons/mail_icon.svg" alt="Email's icon" class="email_icon">
+                <h3>support&#64;enicar.ucar.tn</h3>
+            </div>
+            <div class="insta">
+                <img src="/footerIcons/insta_icon.svg" alt="Instagram's icon" class="insta_icon">
+                <h3>&#64;EnicarAlumniEngine</h3>
+            </div>
+            <div class="twitter">
+                <img src="/footerIcons/twitter_icon.svg" alt="Twitter's icon" class="twitter_icon">
+                <h3>&#64;EnicarAlumniEngine</h3>
+            </div>
+        </div>
+        <div class="bottom_footer">
+            <p>© 2025 All Rights Reserved</p>
+            <p>This platform is intended for alumni and students of Enicarthage.</p>
+            <p>+216 99-999-999</p>
+        </div>
+    </section>
+</div>

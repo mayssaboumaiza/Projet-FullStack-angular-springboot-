@@ -1,0 +1,272 @@
+<div class="container">
+  <!-- Sidebar (Profile Section) -->
+  <div class="sidebar">
+    <div class="profile-header">
+      <img src="/profileimg.svg" alt="Profile Picture" class="profile-pic">
+      <h2>Alexa Rawles</h2>
+      <p class="role">Alumni</p>
+    </div>
+    <ul class="profile-info">
+      <li><strong>Graduation Year:</strong> 2021</li>
+      <li><strong>Job Title:</strong> {{ jobTitle }}</li>
+      <li><strong>Company:</strong> {{ companyName }}</li>
+      <li><strong>Full-Time:</strong> {{ companyName }}</li>
+      <li><strong>Industry:</strong> Web Development</li>
+    </ul>
+    <ul class="interests">
+      <li *ngIf="preferences.mentor">👩‍🎓 Mentor</li>
+      <li *ngIf="preferences.referrals">📚 Job/Internship Referrals</li>
+      <li *ngIf="preferences.advice">💡 Career Advice</li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Top Navbar -->
+    <div class="top-nav">
+      <input type="text" placeholder="Search" class="search-bar">
+      <div class="nav-icons">
+        <span (click)="toggleHome()">🏠</span> <!-- Home icon -->
+        <span>📄</span> <!-- Documents icon -->
+        <span (click)="toggleMessages()" >✉️</span> <!-- Messages icon -->
+        <span (click)="togglePosts()" class="profile-icon">👤</span> <!-- Profile icon -->
+        <span>☰</span> <!-- Menu -->
+      </div>
+    </div>
+    <!-- Home Section -->
+    <div *ngIf="showHome" class="home-container">
+      <div class="latest-offers">
+        <h1>Latest Offers And Posts</h1>
+        <div class="offer" *ngFor="let offer of offers; let i = index">
+          <div class="offer-header">
+            <img src="/profileimg.svg" alt="Profile Picture" class="offer-profile-pic">
+            <div>
+              <strong>{{ offer.author }}</strong> <br> {{ "@" + offer.creatorCompany }}
+              <span class="offer-date">{{ offer.createdAt | date:'short' }}</span>
+            </div>
+            <div class="offer-actions-menu">
+              <span class="menu-dots" (click)="toggleOfferMenu(i)">...</span>
+              <div class="dropdown-menu" *ngIf="showOfferMenu && selectedOfferIndex === i">
+                <button (click)="flagForReview(i)">Flag this post for review</button>
+              </div>
+            </div>
+          </div>
+          <h3> {{ offer.offerType }} OFFER: {{ offer.position }} — {{ offer.duration }} — {{ offer.company }}</h3>
+          <p class="offer-description"><strong>Description:</strong> {{ offer.description }}</p>
+        </div>
+      </div>
+      <div class="suggestions">
+        <h1>Suggestions</h1>
+        <div class="suggestion-group">
+          <h3>Class of 2021:</h3>
+          <div class="suggestion" *ngFor="let alum of classOf2021">
+            <img src="/profileimg.svg" alt="Profile Picture" class="suggestion-pic">
+            <span>{{ alum.name }}</span>
+            <button class="connect-btn">Connect</button>
+          </div>
+        </div>
+        <div class="suggestion-group">
+          <h3>Students in your field:</h3>
+          <div class="suggestion" *ngFor="let student of studentsInField">
+            <img src="/profileimg.svg" alt="Profile Picture" class="suggestion-pic">
+            <span>{{ student.name }}</span>
+            <button class="connect-btn">Connect</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Flagged Post Popup -->
+    <div *ngIf="showFlaggedPopup" class="popup-overlay">
+      <div class="popup">
+        <button class="close-btn" (click)="closeFlaggedPopup()">X</button>
+        <h2>Flagged Post</h2>
+        <p>Thank you for reporting this post. Our team will review it shortly and take appropriate action if necessary.</p>
+        <button class="ok-btn" (click)="closeFlaggedPopup()">OK</button>
+      </div>
+    </div>
+    <!-- Posts Section -->
+    <div *ngIf="showPosts" class="posts-container">
+      <div *ngIf="!showEditProfile && !showNewPost && !editingPostIndex" class="posts-section">
+        <div class="header">
+          <h1>Recent Posts</h1>
+          <button (click)="toggleEditProfile()" class="edit-btn">Edit</button>
+        </div>
+        <div class="post-list" *ngIf="userPosts.length > 0">
+          <div class="post" *ngFor="let post of userPosts; let i = index">
+            <div class="post-header">
+              <img src="/profileimg.svg" alt="Profile Picture" class="profile-pic">
+              <div>
+                <strong>{{ post.creator?.firstName }} {{ post.creator?.lastName }}</strong> {{ post.creator?.company }}
+                <span class="post-date">{{ post.createdAt | date:'medium' }}</span>
+              </div>
+              <div class="post-actions-menu">
+                <span class="menu-dots" (click)="togglePostMenu(i)">...</span>
+                <div class="dropdown-menu" *ngIf="showPostMenu && selectedPostIndex === i">
+                  <button (click)="editPost(i)">Edit Post</button>
+                  <button (click)="deletePost(i)">Delete Post</button>
+                </div>
+              </div>
+            </div>
+            <p class="post-content">{{ post.description }}</p>
+          </div>
+        </div>
+        <p class="no-posts" *ngIf="userPosts.length === 0">No Available Posts</p>
+        <p class="prompt" *ngIf="userPosts.length === 0">Click Here to Publish Your First Post</p>
+        <button (click)="showNewPost = true" class="post-btn">Post</button>
+      </div>
+      <div *ngIf="showEditProfile" class="edit-profile-container">
+        <div class="header">
+          <h1>Edit Profile</h1>
+        </div>
+        <div class="edit-profile-form">
+          <div class="form-group">
+            <label>Change Job Title</label>
+            <input type="text" [(ngModel)]="jobTitle" placeholder="Enter new job title">
+            <button class="change-btn" (click)="changeJobTitle()">Change</button>
+          </div>
+          <div class="form-group">
+            <label>Change Company</label>
+            <input type="text" [(ngModel)]="companyName" placeholder="Enter new company">
+            <button class="change-btn" (click)="changeCompany()">Change</button>
+          </div>
+          <div class="form-group">
+            <label>Change Preferences</label>
+            <div>
+              <label><input type="checkbox" [(ngModel)]="preferences.mentor"> I am open to mentoring students.</label>
+            </div>
+            <div>
+              <label><input type="checkbox" [(ngModel)]="preferences.referrals"> I am willing to refer students for job or internship opportunities.</label>
+            </div>
+            <div>
+              <label><input type="checkbox" [(ngModel)]="preferences.advice"> I am open to providing career advice to students.</label>
+            </div>
+            <button class="save-btn" (click)="savePreferences()">Save Preferences</button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="showNewPost" class="new-post-container">
+        <div class="header">
+          <h1>New Post</h1>
+          <button class="edit-btn">Edit</button>
+        </div>
+        <label>
+          <input type="checkbox" [(ngModel)]="isJobOffer" (change)="toggleJobOffer()"> Job or Internship Offer
+        </label>
+        <div *ngIf="isJobOffer" class="job-offer-form">
+          <div class="form-group">
+            <label>Type</label>
+            <select [(ngModel)]="jobType">
+              <option value="internship">Internship</option>
+              <option value="job">Job</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Duration</label>
+            <select [(ngModel)]="duration">
+              <option value="Trimester">Trimester</option>
+              <option value="Semester">Semester</option>
+              <option value="Year">Year</option>
+              <option value="Extendable">Extendable</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Company</label>
+            <input type="text" [(ngModel)]="company">
+          </div>
+          <div class="form-group">
+            <label>Position</label>
+            <input type="text" [(ngModel)]="position">
+          </div>
+          <div class="form-group">
+            <label>Proposed Salary (Blank if N/A)</label>
+            <input type="text" [(ngModel)]="salary">
+          </div>
+          <div class="form-group">
+            <label>Write out the offer's description here</label>
+            <textarea [(ngModel)]="description" placeholder="Write out the offer's description here"></textarea>
+          </div>
+        </div>
+        <div class="post-composer" *ngIf="!isJobOffer">
+          <textarea [(ngModel)]="content" placeholder="Compose new post"></textarea>
+        </div>
+        <div class="post-actions">
+          <button (click)="showNewPost = false" class="cancel-btn">Cancel</button>
+          <button (click)="submitPost()" class="post-btn">Post</button>
+        </div>
+      </div>
+      <div *ngIf="editingPostIndex !== null" class="edit-post-container">
+        <div class="header">
+          <h1>Edit Post</h1>
+          <button class="edit-btn">Edit</button>
+        </div>
+        <div class="post-composer">
+          <textarea [(ngModel)]="editedDescription" placeholder="Edit your post"></textarea>
+          <div class="post-actions">
+            <button (click)="cancelEdit()" class="cancel-btn">Cancel</button>
+            <button (click)="saveEdit()" class="post-btn">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+         <!-- Show Messages -->
+<div class="messages-section" *ngIf="showMessages">
+  <div class="conversations-list">
+    <h3>Messaging <span class="unread-count">{{ (conversations | filterConversationsWithUnread).length }}</span></h3>
+    <input type="text" placeholder="Search in dashboard..." class="search-bar messages-search">
+    
+    <div class="conversation-item" *ngFor="let convo of conversations" (click)="selectConversation(convo)">
+      <div class="user-info">
+        <img src="/profileimg.svg" alt="Profile Avatar" class="conversation-avatar">
+        <div>
+          <p class="conversation-user">
+            {{ convo.otherUser.name }}
+            <span class="user-role">{{ getSimpleRole(convo.role) }}</span>
+          </p>
+          <p class="last-message">
+            {{ convo.lastMessageContent ? (convo.lastMessageContent | slice:0:30) : 'No messages yet' }}
+            {{ convo.lastMessageContent && convo.lastMessageContent.length > 30 ? '...' : '' }}
+          </p>
+        </div>
+      </div>
+      <div class="conversation-meta">
+        <p class="conversation-time">{{ convo.lastMessageDate | timeAgo }}</p>
+        <span class="unread-dot" *ngIf="convo.unreadCount"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-area" *ngIf="selectedConversation">
+    <div class="chat-header">
+      <div class="user-info">
+        <img src="/profileimg.svg" alt="Profile Avatar" class="chat-avatar">
+        <div>
+          <p class="chat-user">{{ selectedConversation.otherUser.name }}</p>
+          <p class="chat-status"><span class="status-dot online"></span> Online</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="chat-messages">
+      <div class="date-divider">Today</div>
+      
+      <div class="message" *ngFor="let msg of selectedConversation.messages">
+        <div class="message-content" [ngClass]="{'sent': msg.isCurrentUser, 'received': !msg.isCurrentUser}">
+          <p>{{ msg.content }}</p>
+          <span class="message-time">{{ msg.sentDate | timeAgo }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="message-input-bar">
+      <input
+        type="text"
+        [(ngModel)]="newMessageContent"
+        placeholder="Type your message..."
+        class="message-input"
+        (keydown.enter)="sendMessage()"
+      />
+      <button class="send-button" (click)="sendMessage()">Send</button>
+    </div>
+  </div>
+</div>
+</div>
+</div>

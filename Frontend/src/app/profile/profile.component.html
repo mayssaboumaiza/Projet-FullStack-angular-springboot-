@@ -1,0 +1,281 @@
+<div class="profile-container">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="profile-header">
+      <img src="/profileimg.svg" alt="Profile Avatar" class="profile-avatar">
+      <h2 class="profile-name">
+        {{ fullName }}
+      </h2>
+      <p class="user-type">{{ userType | titlecase }}</p>
+    </div>
+    <ul class="profile-details">
+      <li *ngIf="userType === 'student'"><strong>Department:</strong> {{user.specialty}}</li>
+      <li *ngIf="userType === 'alumni'"><strong>Department:</strong> {{ user.department }}</li>
+      <li><strong>Specialty:</strong> {{ specialty }}</li>
+      <li *ngIf="userType === 'student'"><strong>Graduation Year:</strong> {{ user.predictedGradYear }}</li>
+      <li *ngIf="userType === 'alumni'"><strong>Graduation Year:</strong> {{ user.graduationYear }}</li>
+      <li><strong>Searching For:</strong> {{ user.searchType }}</li>
+      <li><strong>Skills:</strong> {{ user.skill }}</li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Top Navbar -->
+    <div class="top-nav">
+      <input type="text" placeholder="Search" class="search-bar">
+      <div class="nav-icons">
+        <span (click)="toggleLatestOffers()">🏠</span> <!-- Home icon -->
+        <span (click)="toggleDashboard()" [class.active]="showDashboard">📄</span> <!-- Documents icon -->
+        <span (click)="toggleMessages()">✉️</span> <!-- Messages icon -->
+        <span (click)="toggleDocuments()">👤</span> <!-- Profile -->
+        <span (click)="toggleMenu()">☰</span> <!-- Menu -->
+      </div>
+      <!-- Dropdown Menu -->
+      <div class="menu-dropdown" *ngIf="showMenu">
+        <ul>
+          <li (click)="logOut()">Log Out</li>
+          <li (click)="setAccountToPrivate()">Set account to private</li>
+          <li (click)="deleteAccount()">Delete account</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Documents Section -->
+    <div class="documents-section">
+      <!-- Edit Button -->
+      <button class="edit-button" (click)="toggleEditForm()" *ngIf="!showMessages && !showLatestOffers && showDocuments">Edit</button>
+
+      <!-- Show Edit Form -->
+      <div class="edit-form" *ngIf="showEditForm">
+        <h3>Edit Profile</h3>
+        <div class="form-group">
+          <label for="skills">Add Skill</label>
+          <input type="text" id="skills" [(ngModel)]="skills" placeholder="Add Skill" class="form-input">
+          <button class="action-button" (click)="addSkill()">Add</button>
+        </div>
+        <div class="form-group">
+          <label for="specialty">Add Specialty</label>
+          <input type="text" id="specialty" [(ngModel)]="specialty" placeholder="Add Specialty" class="form-input">
+          <button class="action-button" (click)="addSpecialty()">Add</button>
+        </div>
+        <div class="form-group">
+          <label for="searchingFor">Searching For</label>
+          <select id="searchingFor" [(ngModel)]="searchingFor" class="form-input">
+            <option value="NA">Select</option>
+            <option value="Internship">Internship</option>
+            <option value="Job">Job</option>
+            <option value="Collaboration">Collaboration</option>
+          </select>
+          <button class="action-button" (click)="changeSearchingFor()">Change</button>
+        </div>
+        <div class="form-group">
+          <label for="graduationYear">Change Expected Graduation Year</label>
+          <select id="graduationYear" [(ngModel)]="graduationYear" class="form-input">
+            <option value="2027">2027</option>
+            <option value="2028">2028</option>
+            <option value="2029">2029</option>
+            <option value="2030">2030</option>
+          </select>
+          <button class="action-button" (click)="changeGraduationYear()">Change</button>
+        </div>
+      </div>
+
+      
+        <!-- Show Latest Offers -->
+        <div class="latest-offers-container" *ngIf="showLatestOffers">
+          <div class="offers-section">
+            <h3>Latest Offers</h3>
+            <div class="offer-item" *ngFor="let offer of latestOffers | slice:0:2; let i = index">
+              <div class="offer-header">
+                <div class="user-info">
+                  <img src="/profileimg.svg" alt="Profile Avatar" class="offer-avatar">
+                  <div>
+                    <strong>{{ offer.author }}</strong> <br> 
+                    {{ "@" + offer.creatorCompany }}
+                    <span class="offer-date">{{ offer.createdAt | date: 'short' }}</span>
+                  </div>
+                </div>
+              </div>
+              <h4 class="offer-title">{{ offer.offerType }} OFFER: {{ offer.position }} — {{ offer.duration }} — {{ offer.company }}</h4>
+              <p class="offer-description">{{ offer.description}}</p>
+            </div>
+          </div>
+  <div class="suggestions-section">
+    <h3>Suggestions</h3>
+    <p class="suggestions-subtitle">Alumni in your field:</p>
+    <div class="alumni-suggestion" *ngFor="let alumni of suggestedAlumni">
+      <div class="alumni-info">
+        <img src="/profileimg.svg" alt="Profile" class="alumni-avatar">
+        <span>{{alumni.name}}</span>
+      </div>
+      <button class="connect-button" [class.connected]="alumni.connected">
+        {{alumni.connected ? 'Connected' : 'Connect'}}
+      </button>
+    </div>
+  </div>
+</div>
+     <!-- Show Messages -->
+<div class="messages-section" *ngIf="showMessages">
+  <div class="conversations-list">
+    <h3>Messaging <span class="unread-count">{{ (conversations | filterConversationsWithUnread).length }}</span></h3>
+    <input type="text" placeholder="Search in dashboard..." class="search-bar messages-search">
+    
+    <div class="conversation-item" *ngFor="let convo of conversations" (click)="selectConversation(convo)">
+      <div class="user-info">
+        <img src="/profileimg.svg" alt="Profile Avatar" class="conversation-avatar">
+        <div>
+          <p class="conversation-user">
+            {{ convo.otherUser.name }}
+            <span class="user-role">{{ getSimpleRole(convo.role) }}</span>
+          </p>
+          <p class="last-message">
+            {{ convo.lastMessageContent ? (convo.lastMessageContent | slice:0:30) : 'No messages yet' }}
+            {{ convo.lastMessageContent && convo.lastMessageContent.length > 30 ? '...' : '' }}
+          </p>
+        </div>
+      </div>
+      <div class="conversation-meta">
+        <p class="conversation-time">{{ convo.lastMessageDate | timeAgo }}</p>
+        <span class="unread-dot" *ngIf="convo.unreadCount"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-area" *ngIf="selectedConversation">
+    <div class="chat-header">
+      <div class="user-info">
+        <img src="/profileimg.svg" alt="Profile Avatar" class="chat-avatar">
+        <div>
+          <p class="chat-user">{{ selectedConversation.otherUser.name }}</p>
+          <p class="chat-status"><span class="status-dot online"></span> Online</p>
+        </div>
+      </div>
+      <button class="request-button">Request</button>
+    </div>
+    
+    <div class="chat-messages">
+      <div class="date-divider">Today</div>
+      
+      <div class="message" *ngFor="let msg of selectedConversation.messages">
+        <div class="message-content" [ngClass]="{'sent': msg.isCurrentUser, 'received': !msg.isCurrentUser}">
+          <p>{{ msg.content }}</p>
+          <span class="message-time">{{ msg.sentDate | timeAgo }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="message-input-bar">
+      <input
+        type="text"
+        [(ngModel)]="newMessageContent"
+        placeholder="Type your message..."
+        class="message-input"
+        (keydown.enter)="sendMessage()"
+      />
+      <button class="send-button" (click)="sendMessage()">Send</button>
+    </div>
+  </div>
+</div>
+          
+
+      <!-- Show Documents Section -->
+      <div class="documents-content" *ngIf="showDocuments">
+        <!-- Show the form when "Add" is clicked -->
+        <div *ngIf="showAddForm">
+          <h3>Documents</h3>
+          <div class="add-form">
+            <textarea [(ngModel)]="description" placeholder="Add a description for the document and don't forget to attach the pdf file." rows="5" class="form-textarea"></textarea>
+            <div class="form-actions">
+              <span class="attachment-icon" (click)="fileInput.click()">📎</span>
+              <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;" accept=".pdf">
+              <button class="cancel-button" (click)="toggleAddForm()">Cancel</button>
+              <button class="post-button" (click)="postDocument()" [disabled]="!description || !selectedFile">Post</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Show "No Available Documents" or the list of posted documents -->
+        <div *ngIf="!showAddForm">
+          <div *ngIf="documents.length === 0">
+            <h3>No Available Documents</h3>
+            <p>Click Here To Add Your Resume And Other Relevant Documents</p>
+            <button class="add-button" (click)="toggleAddForm()">Add</button>
+          </div>
+          <div *ngFor="let doc of documents" class="document-card">
+            <div class="document-header"> 
+              <div class="user-info">
+                <img src="/profileimg.svg" alt="Profile Avatar" class="document-avatar">
+                <div>
+                  <p class="document-user">
+                    {{ userType === 'student' ? (user.firstName + ' ' + user.lastName) : user.fullName }}
+                  </p>
+                  <p class="document-role">{{ userType | titlecase }}</p>
+                </div>
+              </div>
+              <p class="document-date">{{ doc.date }} <span>⋯</span></p>
+            </div>
+          
+            <p class="document-description">{{ doc.description }}</p>
+          
+            <div class="document-file">
+              <span class="file-type">{{ doc.fileType }}</span>
+              <a [href]="doc.fileUrl" [download]="doc.fileName" class="file-name">{{ doc.fileName }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="dashboard-section" *ngIf="showDashboard">
+  <h2>Dashboard</h2>
+  
+  <div class="dashboard-grid">
+    <!-- Section Placement Rates -->
+    <div class="dashboard-card">
+      <h3>Job Placement Rates Over The Last 5 Years</h3>
+      
+      <div class="top-employers">
+        <h4>Top Employers</h4>
+        <button class="view-more">View More</button>
+        
+        <table>
+          <thead>
+            <tr>
+              <th>Company Name</th>
+              <th>Number of Hires</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let employer of topEmployers">
+              <td>{{ employer.companyName }}</td>
+              <td>{{ employer.hires }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Section Skills -->
+    <div class="dashboard-card">
+      <h3>Top Sought-after Skills</h3>
+      <div class="skills-list">
+        <div class="skill-item" *ngFor="let skill of topSkills">
+          <span class="skill-name">{{ skill.name }}</span>
+          <div class="skill-bar">
+            <div class="skill-progress" [style.width.%]="skill.percentage"></div>
+          </div>
+          <span class="skill-percentage">{{ skill.percentage }}%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section Employment -->
+    <div class="dashboard-card">
+      <h3>Employment By Speciality</h3>
+      <div class="industry-stats">
+        <div class="industry-item" *ngFor="let specialty of industries">
+          <div class="industry-percentage">{{ specialty.percentage }}%</div>
+          <div class="industry-name">{{ specialty.name }}</div>
+        </div>
+      </div>
+    </div>
+</div>

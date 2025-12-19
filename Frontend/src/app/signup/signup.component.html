@@ -1,0 +1,87 @@
+
+<div class="sign-up ">
+    <div class="signup-form">
+      <div class="user-type-selector">
+        <div class="radio-option" (click)="selectUserType('student')">
+          <span class="radio-button" [class.selected]="userType === 'student'"></span>
+          <span>Enicarthage Student</span>
+        </div>
+        <div class="radio-option" (click)="selectUserType('alumni')">
+          <span class="radio-button" [class.selected]="userType === 'alumni'"></span>
+          <span>Enicarthage Alumni</span>
+        </div>
+      </div>
+  
+      <!-- Student Form -->
+      <div class="student-form" *ngIf="userType === 'student'">
+        <form (ngSubmit)="onSubmit($event)">
+          <div class="form-group">
+            <label for="first-name">First name</label>
+            <input type="text" id="first-name" placeholder="First name" [(ngModel)]="student.firstName" name="firstName" required>
+          </div>
+          <div class="form-group">
+            <label for="last-name">Last name</label>
+            <input type="text" id="last-name" placeholder="Last name" [(ngModel)]="student.lastName" name="lastName" required>
+          </div>
+          <div class="form-group">
+            <label for="email">University email address</label>
+            <input type="email" id="email" placeholder="University email address" [(ngModel)]="student.email" name="email" required>
+          </div>
+          <div class="form-group password-group">
+            <label for="password">Password</label>
+            <input [type]="showPassword ? 'text' : 'password'" id="password" placeholder="Enter your password" [(ngModel)]="student.password" name="password" required>
+            <span class="toggle-password" (click)="togglePassword()">{{ showPassword ? 'Hide' : 'Show' }}</span>
+          </div>
+          <p class="password-hint">Use 8 or more characters with a mix of letters, numbers & symbols</p>
+  
+          <div class="terms-agreement">
+            <p>By creating an account, you agree to the <a href="/terms">Terms of use</a> and <a href="/terms">Privacy Policy</a>.</p>
+          </div>
+          
+          <button type="submit" class="submit-button">Sign Up</button>
+        </form>
+      </div>
+  
+      <!-- Alumni Form -->
+      <div class="student-form" *ngIf="userType === 'alumni'">
+        <form (ngSubmit)="onSubmit($event)">
+          <div class="form-group">
+            <label for="alumni-first-name">First name</label>
+            <input type="text" id="alumni-first-name" placeholder="First name" [(ngModel)]="alumni.firstName" name="alumniFirstName" required>
+          </div>
+          <div class="form-group">
+            <label for="alumni-last-name">Last name</label>
+            <input type="text" id="alumni-last-name" placeholder="Last name" [(ngModel)]="alumni.lastName" name="alumniLastName" required>
+          </div>
+          <div class="form-group">
+            <label for="graduation-year">Graduation Year</label>
+            <input type="number" id="graduation-year" placeholder="Graduation Year" [(ngModel)]="alumni.graduationYear" name="graduationYear" required>
+          </div>
+          <div class="form-group">
+            <label for="alumni-email">University email address</label>
+            <input type="email" id="alumni-email" placeholder="University email address" [(ngModel)]="alumni.email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="id">CIN</label>
+            <input type="text" id="id" placeholder="CIN" [(ngModel)]="alumni.cin" name="id" required>
+          </div>
+          <div class="form-group">
+            <label for="department">Department</label>
+            <input type="text" id="department" placeholder="Department" [(ngModel)]="alumni.department" name="department" required>
+          </div>
+          <div class="form-group password-group">
+            <label for="alumni-password">Password</label>
+            <input [type]="showPassword ? 'text' : 'password'" id="alumni-password" placeholder="Enter your password" [(ngModel)]="alumni.password" name="password" required>
+            <span class="toggle-password" (click)="togglePassword()">{{ showPassword ? 'Hide' : 'Show' }}</span>
+          </div>
+          <p class="password-hint">Use 8 or more characters with a mix of letters, numbers & symbols</p>
+  
+          <div class="terms-agreement">
+            <p>By creating an account, you agree to the <a href="/terms">Terms of use</a> and <a href="/terms">Privacy Policy</a>.</p>
+          </div>
+  
+          <button type="submit" class="submit-button">Sign Up</button>
+        </form>
+      </div>
+    </div>
+  </div>

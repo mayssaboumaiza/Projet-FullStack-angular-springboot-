@@ -1,0 +1,400 @@
+@font-face {
+    font-family: 'Inter';
+    src: url('/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+    font-weight: 700;
+    font-style: bold;
+}
+@font-face {
+    font-family: 'InterMed';
+    src: url(/Inter-VariableFont_opsz,wght.ttf) format('truetype');
+    font-weight: 500;
+    font-style: medium;
+}
+@font-face {
+    font-family: 'InterReg';
+    src: url(/Inter-VariableFont_opsz,wght.ttf) format('truetype');
+    font-weight: 300;
+    font-style:normal;
+}
+@font-face {
+    font-family: 'Inter-elts';
+    src: url('/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+    font-weight: 100;
+    font-style: thin;
+}
+@font-face {
+    font-family: 'Poppins_button';
+    src: url('/Poppins-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: regular;
+}
+@font-face {
+    font-family: 'Poppins';
+    src: url('/Poppins-Thin.ttf') format('truetype');
+    font-weight: 3;
+    font-style: thin;
+}
+@font-face {
+    font-family: 'RobotoReg';
+    src: url('/Roboto-Regular.ttf') format('truetype');
+    font-weight: 400;
+}
+@font-face {
+    font-family: 'RobotoThin';
+    src: url('/Roboto-Thin.ttf') format('truetype');
+    font-weight: 100;
+}
+html{
+    scroll-behavior: smooth;
+  }
+.home{
+    width: 100%;
+    position: absolute;
+    left: 0;
+}
+#navbar {
+    display: flex; 
+    align-items: center; 
+    gap:150px;
+    background-color: #0071C1;
+    position: fixed; 
+    top: 0; 
+    left: 0;
+    right: 0;
+    height: 80px;
+    z-index: 1000;
+}
+#title{
+    font-family: 'Inter', sans-serif;
+    color: #FFFFFF;
+    font-size: 32px;
+}
+.circle-image {
+    background-size: cover;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-left: 15px;
+  }
+.logo-group {
+    display: flex; /* Align logo and title horizontally */
+    align-items: center; /* Vertically center the items */
+    gap: 10px; /* Add space between the logo and title */
+}
+.navbar-elts {
+    font-family: 'Inter-elts', sans-serif;
+    display: flex;
+    align-items: center;
+    gap:20px;
+    color: #FFFFFF;
+    font-size: 18px;
+}
+.navbar-elts a {
+    color: inherit;
+    text-decoration: none;
+    font: inherit;
+  }
+  #login_button, #signup_button {
+    padding: 8px 16px;
+    border: none; /* Remove the border to match the screenshot */
+    border-radius: 5px;
+    background: #4A90E2; /* Blue background by default */
+    color: white; /* White text by default */
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  #login_button:hover, #signup_button:hover {
+    background-color: #1E3A8A; /* Slightly darker blue on hover */
+    color: white;
+  }
+.button_grp{
+    display: flex; 
+    align-items: center; 
+    gap:15px;
+}
+.right_nav{
+    display: flex;
+    align-items: center;  
+    gap:50px;
+    margin-right: 0px;
+    margin-left: auto;
+}
+#join_button{
+    background-color: #4F9CF9;
+    color:#FFFFFF;
+    border: 1px,solid, #FFFFFF;
+    border-radius: 8px;
+    font-family: 'InterMed', sans-serif;
+    font-size:16px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-right:15px ;
+}
+#heading {
+    background-color: #0071C1;
+    height: 750px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    width: 100%;
+    margin: 0;
+}
+
+.intro_text{
+    display: block;
+    color: #FFFFFF;
+    margin-left: -95px;
+}
+#slogan{
+    font-family: 'Inter','sans-serif';
+    font-size: 64px;
+}
+.intro_text h4{
+    font-family: 'Inter-elts','sans-serif';
+    font-size: 18px;
+}
+#question{
+    margin-top:60px;
+}
+.intro{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.logo-enicar{
+    width: 650px;
+    height: 300px;
+    margin-top: 125px;
+    margin-left: 20px;
+}
+#about{
+    margin-top: 100px;
+}
+#about h4{
+    color: #0093FF;
+    margin-left: 44px;
+    font-family: 'Poppins';
+    font-size: 30px;
+    margin-top: 45px;
+    margin-bottom: 0px;
+}
+.alumni{
+    color: #303A42;
+    font-family: 'Poppins_button';
+    font-size: 35px;
+    margin-left:44px;
+    margin-top: 0px;
+}
+.about_Img_text{
+    display: flex;
+    align-items: center;
+    gap:300px;
+    margin-left: 36px;
+    font-family:'InterReg';
+    color: #303A42;
+    font-size: 20px;
+    margin-top: -20px;
+    line-height: 2;
+}
+.Images{
+    position: relative;
+    z-index: 0;
+}
+.clasping-hands-img{
+    object-fit: cover;
+}
+.review-stars-img{
+    position: absolute;
+    left: -80px;
+    bottom: 80px;
+    height:58px;
+    width: 198px;
+    transform: rotate(8deg);
+    filter: drop-shadow(5px 5px 40px rgba(0, 0, 0, 0.5));
+    z-index: 1;
+}
+.join{
+    position: relative;
+    display: block;
+    top: 50%;
+    left: 20%;
+}
+#ready_join_button{
+    position: absolute;
+    background-color: #0787E5;
+    font-family: 'Inter';
+    font-size: 18px;
+    color: #FFFFFF;
+    padding: 15px;
+    cursor: pointer;
+    left:27%;
+    top: 45%;
+    border-radius: 10px;
+    border: 1px,solid, #FFFFFF;
+}
+#why h4{
+    color: #0093FF;
+    margin-left: 47%;
+    font-family: 'Poppins';
+    font-size: 30px;
+    margin-top: 80px;
+    margin-bottom: 0px;
+}
+#why h2{
+    color: #303A42;
+    font-family: 'Poppins_button';
+    font-size: 30px;
+    margin-left:44%;
+    margin-top: 0px;
+}
+#why{
+    background-image: url("/element.svg");
+    background-size: 2875px 2000px;
+    background-repeat: no-repeat;
+    background-position: center;
+    overflow-x: hidden;
+}
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    grid-template-rows: repeat(2, 1fr);    /* 2 rows */
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+  }
+  
+.feature-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    padding: 30px;
+    text-align: center;
+    position: relative;
+    padding-top: 80px;
+  }
+  .feature-card h2{
+    margin-left: 0px !important;
+    margin-top: -10px;
+    font-size: 27px !important;
+  }
+  .feature-card h3{
+    font-family: 'Inter-elts';
+    font-size: 18px;
+    color: rgba(48,58,66,0.8);
+  }
+.vector-container {
+    width: 68px;
+    height: 68px;
+  border-radius: 50%;
+  background: #DCF0FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -25px; /* Half outside card */
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  .feature-vector {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+  }
+  #footer{
+    background-image: url("/footer_rect.svg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    overflow-x: hidden;
+    font-family: 'RobotoThin';
+    color: #FFFFFF;
+  }
+  .contact_footer{
+    margin-left: 75%;
+    margin-top: -250px;
+  }
+  .contact_footer h3{
+    font-size: 14px;
+  }
+  .navigation_footer{
+    margin-left: 40%;
+    margin-top: -150px;
+  }
+  .location{
+    display: flex;
+    gap: 10px;
+  }
+  .mail{
+    display: flex;
+    gap: 10px;
+  }
+  .insta{
+    display: flex;
+    gap: 10px;
+  }
+  .twitter{
+    display: flex;
+    gap: 10px;
+  }
+  .logo_text{
+    display: flex;
+    margin-top: 170px;
+    align-items: baseline;
+  }
+  .logo_button{
+    margin-left: 136px;
+    margin-top: 350px;
+  }
+  .text_footer{
+    margin-bottom: 20px;
+  }
+  .logo_button button{
+    font-family: inherit;
+    color: #000000;
+    font-size: 16px;
+    border-radius: 5px;
+    border-style: hidden;
+    width: 200px;
+    height:60px;
+  }
+
+  .navigation_footer a{
+    color: inherit;
+    text-decoration: none;
+    font-family: inherit;
+    font-size: 16px;
+    margin-bottom: 5px !important;
+    display: block !important;
+  }
+  .bottom_footer{
+    display: flex;
+    gap: 350px;
+    padding-left: 20px;
+    margin-top: 20px;
+    padding-bottom: 20px;
+    background-color: #0071C1;
+  }
+
+  .home-container {
+    text-align: center;
+    padding: 50px;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  h1 {
+    font-size: 28px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    font-size: 16px;
+    color: #7f8c8d;
+  }
